@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/4698/4698295.png" />
+    <title>Ratatype</title>
+    <style>
+        body{
+            /* border: 2px solid black; */
+            background: url("https://images.pexels.com/photos/8264/pexels-photo.jpg?cs=srgb&dl=pexels-life-of-pix-8264.jpg&fm=jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        #content{
+            width: 80%;
+            margin: auto;
+            margin-top: 120px;
+            background-color: rgba(218, 218, 218, 0.8);
+            border: 1px solid grey;
+            text-align:left;
+            padding: 50px 20px;
+            border-radius: 50px;
+            color: black;
+            box-sizing: border-box;
+            font-size: 30px;
+            font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            letter-spacing: 1px;
+        }
+      .current
+      {
+          background: green;
+          color: white;
+          padding: 0px 3px;
+          border-radius: 5px;
+      }
+      .correct
+      {
+          color: green;
+          /* font-weight: bold; */
+      }
+      .error
+      {
+          background: maroon;
+          color: white;
+          padding: 0px 3px;
+          border-radius: 5px;
+      }
+      #data
+      {
+          position: absolute;
+          top:2%;
+          right: 2%;
+          background: black;
+          color: white;
+          padding: 10px 20px;
+          border-radius: 10px;
+      }
+    </style>
+</head>
+<body>
+    <div id="content">
+    </div>
+    <div id="data">
+        <div>timer : <span  id="timer">0</span></div>
+        <div>Speed : <span  id="speed">0</span></div>
+        <div>Accuracy : <span  id="accuracy">100</span></div>
+    </div>
+</body>
+</html>
+
+<script>
+    var content = document.getElementById("content");
+    var speed = document.getElementById("speed");
+    var timerDiv = document.getElementById("timer");
+    var accuracyDiv = document.getElementById("accuracy");
+    var avgCount = 5; // 5 charcaters per second = 1 WPM
+    var para = "Yes. We're always interested in improving this generator and one of the best ways to do that is to add new and interesting paragraphs to the generator. If you'd like to contribute some random paragraphs, please contact us.";
+    var index = 0;
+    console.log(para.length)
+    var WrongSumbission = 0;
+    var MS = 0
+    var chars = 0;
+    for(var x of para)
+    {
+        content.innerHTML += `<span>${x}</span>`
+    }
+    content.children[0].classList.add("current");
+    var timer;
+    window.addEventListener("keypress", (e)=>{
+      
+        if(index == 0)
+        {
+            timer = setInterval(()=>{
+                MS++;
+                timerDiv.innerText = Math.floor(MS);
+                // console.log(((index/MS)*12).toFixed(1));
+                var WPM = ((index/MS)*(60/avgCount)).toFixed(0);
+                speed.innerText = WPM;
+            },1000)
+        }
+        
+        var keynum;
+
+        if(window.event) // IE                  
+            keynum = e.keyCode;
+        else if(e.which)// Netscape/Firefox/Opera                 
+            keynum = e.which;
+        var char = String.fromCharCode(keynum);
+        // console.log(char);
+        if(char == para[index])
+        {
+            chars++;
+            content.children[index].classList.remove("error");
+            content.children[index].classList.remove("current");
+            content.children[index].classList.add("correct");
+            index++;
+            if(index == para.length)
+            {
+                console.log(timer)
+                clearInterval(timer);
+                return;
+            }
+            content.children[index].classList.add("current");
+        }
+        else{
+            WrongSumbission++;
+            content.children[index].classList.remove("current");
+            content.children[index].classList.add("error");
+            var first = para.length-WrongSumbission;
+            var second = para.length;
+            console.log(first, second)
+            // var finalCalc = (().toFixed(2);
+            accuracyDiv.innerText = ((first/second)*100).toFixed(2);
+        }
+        // WrongSumbission, 
+        // var totalAccurate = index;
+        // para.length
+       
+    })
+</script>
