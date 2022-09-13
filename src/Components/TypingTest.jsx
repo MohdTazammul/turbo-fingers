@@ -4,7 +4,7 @@ import { useRef } from 'react'
 import { useEffect } from 'react'
 // import GaugeChart from "react-gauge-chart";
 
-import "./TypingTestStyle.css"
+import "./style.scss"
 var x = 0;
 var wrongChars = {};
 function TypingTest() {
