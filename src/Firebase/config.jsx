@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyC5dusDG4-z7qpOy9xKrJQ9YzKpf96qwXM",
-  authDomain: "typing-master-cdbc5.firebaseapp.com",
-  projectId: "typing-master-cdbc5",
-  storageBucket: "typing-master-cdbc5.appspot.com",
-  messagingSenderId: "789845915177",
-  appId: "1:789845915177:web:1fdb3f83c295c452cdce38"
+  apiKey: "AIzaSyAsNXjbuwXwroMr1_1qUSgaxvvK4wTmzyk",
+  authDomain: "turbo-fingers.firebaseapp.com",
+  projectId: "turbo-fingers",
+  storageBucket: "turbo-fingers.appspot.com",
+  messagingSenderId: "198231804922",
+  appId: "1:198231804922:web:2e65e9bba8b6b4a0067243"
 };
 
 // Initialize Firebase
