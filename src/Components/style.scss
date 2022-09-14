@@ -36,8 +36,6 @@ $error : maroon;
 .correct
 {
   color: $currentChar;
-  /* background-color: rgb(120, 201, 120); */
-  /* font-weight: bold; */
 }
 .error
 {
@@ -52,6 +50,7 @@ $error : maroon;
   top:2%;
   right: 2%;
   background: black;
+  border: 2px solid blue;
   width: 150px;
   color: white;
   text-align: center;
