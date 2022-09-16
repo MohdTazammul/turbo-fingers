@@ -1,0 +1,21 @@
+#StatsCard
+{
+  background: #030e12;
+  width: 100%;
+  color: white;
+  box-sizing: border-box;
+  padding: 15px 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 30%);
+  justify-content: space-between;
+}
+#StatsCard > div{
+    font-size: 4vw;
+    text-align: center;
+    // border: 1px solid white;
+}
+#StatsCard .icon
+{
+    margin-bottom: -0.6vw;
+    margin-right: 0.5vw;
+}
