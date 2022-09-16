@@ -1,0 +1,53 @@
+$currentChar : green;
+$error : maroon;
+
+#main-container{
+    border: 1px solid black;
+    background: url("https://images.pexels.com/photos/8264/pexels-photo.jpg?cs=srgb&dl=pexels-life-of-pix-8264.jpg&fm=jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+}
+#content-cont{
+    width: 80%;
+    height: auto;
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(218, 218, 218, 0.5);
+    border: 1px solid grey;
+    text-align:left;
+    backdrop-filter: blur(5px);
+    border-radius: 20px;
+    overflow: hidden;
+}  
+#content
+{
+  padding: 1em;
+  box-sizing: border-box;
+  font-size: 2.2vw;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-weight: 500;
+  color: black;
+}
+.current
+{
+  background: $currentChar !important;
+  color: white;
+  padding: 0px 3px;
+  border-radius: 5px;
+}
+.correct
+{
+  color: $currentChar;
+}
+.error
+{
+  background: $error !important;
+  color: white;
+  padding: 0px 3px;
+  border-radius: 5px;
+}
