@@ -1,0 +1,14 @@
+.b-level-2.b-type-2 {
+    border: 3px solid #ff512f;
+    background-image: -webkit-linear-gradient(30deg, #ff512f 50%, #111 50%);
+    background-size: 1000px;
+    background-position: 0%;
+    background-repeat: no-repeat;
+    transition:1s;
+  }
+  
+  .b-level-2.b-type-2:hover {
+    background-position: 100%;
+    color: #ff512f;
+  }
+  
