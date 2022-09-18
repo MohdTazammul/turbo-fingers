@@ -4,13 +4,15 @@ import { useRef } from 'react'
 import { useEffect } from 'react'
 import { Icon } from '@iconify/react';
 import { useNavigate } from 'react-router-dom'
-// import GaugeChart from "react-gauge-chart";
 
 import "./style.scss"
 import StatsCard from '../../Components/StatsCard/StatsCard';
-var x = 0;
+import SpeedLoader from '../../utills/SpeedLoader';
+import ScoreCard from '../../Components/ScoreCard/ScoreCard';
 var wrongChars = {};
+var numberOfCharsTyped=0
 function TypingTest() {
+
     const navigate = useNavigate();
     var content = useRef([]);
     var [timerFlag, setTimerFlag] = useState(false);
@@ -19,8 +21,11 @@ function TypingTest() {
     var [seconds, setSeconds] = useState(0);
     var [speed, setSpeed] = useState(0);
     var [accuracy, setAccuracy] = useState(0);
+    const [scorePage, setScorePage] = useState(false);
+    const [loader, setLoader] = useState(false);
+    // const [numberOfCharsTyped, setNumberOfCharsTyped] = useState(0);
     // var [wrongChars, setWrongChars] = useState({});
-    var para = "Used for React and React Native, Victory is another popular react chart library that has a set of charting components and uses the same API for all applications. Used for React and React Native, Victory is another popular react chart library that has a set of charting components and uses the same API for all applications.Used for React and React Native, Victory is another popular react chart library that has a set of charting components and uses the same API for all applications."
+    var para = "Used for React and "
         para = para.split("");
 
         var wrongSumbissions = 0;
@@ -28,14 +33,12 @@ function TypingTest() {
         var currentIndex = 0;
         content.current[0].classList.add("current");
         window.addEventListener("keypress", (e)=>{ 
-            if(currentIndex == para.length)
-            return
-            if(!timerFlag)
-            {
-                setTimerFlag(true);
-            }
+            numberOfCharsTyped = currentIndex
+            if(currentIndex >= para.length)
+                return
             if(currentIndex == 0)
             {
+                setTimerFlag(true);
                 setAccuracy(100);
             }
             if(para[currentIndex] == e.key)
@@ -44,12 +47,16 @@ function TypingTest() {
                 content.current[currentIndex].classList.remove("current");
                 content.current[currentIndex].classList.add("correct");
                 currentIndex++;
-                if(currentIndex == para.length)
+                if(currentIndex >= para.length)
                 {
-                    navigate("/signup")
+                    setTimerFlag(false)
+                    setLoader(true)
+                    setTimeout(()=>{
+                        setScorePage(true);
+                    }, 1000)
                 }
-                x++;
-                content.current[currentIndex].classList.add("current");
+                else
+                    content.current[currentIndex].classList.add("current");
             }
             else
             {
@@ -60,36 +67,29 @@ function TypingTest() {
                 let first = para.length-wrongSumbissions;
                 let second = para.length;
                 setAccuracy(((first/second)*100).toFixed(2))
-                // console.log(currentIndex, para[currentIndex], e.key, wrongSumbissions)
             }
-            console.log(timer, currentIndex)
         })
     }, [])
-    var timerInterval;
+    
     useEffect(()=>{
-        
-        console.log(x/2, para.length)
+        var timerInterval;
         if(timerFlag)
         {
             timerInterval = setInterval(()=>{
-                // console.log(timer)'
-                // console.log(timerInterval, x)
-                if(x/2 >= para.length)
+                if(numberOfCharsTyped >= para.length-1)
                 {
-                    clearInterval(timerInterval)
-                    console.log(wrongChars)
+                    clearInterval(timerInterval);
                 }
-                setTimer(pre=>pre+1)
-                setSeconds(pre=>pre+1)
-                // var WPM = ((current/timer)*(60/5)).toFixed(0);
-                // setSpeed(WPM);
+                else{
+                    setTimer(pre=>pre+1)
+                    setSeconds(pre=>pre+1)
+                }
             },1000)
         }
     }, [timerFlag])
     useEffect(()=>{
-        var WPM = ((Math.floor(x/2)/Math.floor(timer))*(60/5)).toFixed(0);
+        var WPM = ((numberOfCharsTyped/Math.floor(timer))*(60/5)).toFixed(0);
         setSpeed(WPM);
-        // console.log(Math.floor(x/2), timer)
     }, [timer])
     useEffect(()=>{
         if(seconds == 60)
@@ -100,15 +100,26 @@ function TypingTest() {
     }, [seconds])
   return (
     <div id='main-container'>
-        <div id="content-cont">
-            <StatsCard minutes={minutes} speed={speed} accuracy={accuracy} seconds={seconds}/>
-            <div id="content">
-                {para.map((el, i)=>{
-                    return <span ref={(el)=>{content.current[i]=el}} key={i}>{el}</span>
-                })}
+        {!loader ? 
+            <div id="content-cont">
+                <StatsCard minutes={minutes} speed={speed} accuracy={accuracy} seconds={seconds}/>
+                <div id="content">
+                    {para.map((el, i)=>{
+                        return <span ref={(el)=>{content.current[i]=el}} key={i}>{el}</span>
+                    })}
+                </div>
             </div>
+        :
+        !scorePage ?
+        <div id={"loader-cont"}>
+            <SpeedLoader />
         </div>
-        
+        :
+        <div>
+            <ScoreCard speed={speed} accuracy={accuracy} totalTime={seconds} seconds={seconds} minutes={minutes} paragraph={para} wrongChars={wrongSumbissions} freqOfWrongChars={wrongChars}/>
+        </div>
+        }
+
         <div>
         {/* <GaugeChart style={{ height: "150px"}}
         id="gauge-chart"

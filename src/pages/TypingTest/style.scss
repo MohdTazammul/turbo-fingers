@@ -51,3 +51,11 @@ $error : maroon;
   padding: 0px 3px;
   border-radius: 5px;
 }
+
+#loader-cont
+{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
