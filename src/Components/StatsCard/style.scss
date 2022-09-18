@@ -5,14 +5,18 @@
   color: white;
   box-sizing: border-box;
   padding: 15px 20px;
-  display: grid;
-  grid-template-columns: repeat(3, 30%);
-  justify-content: space-between;
+  display: flex;
+  justify-content: space-evenly;
 }
 #StatsCard > div{
-    font-size: 4vw;
+    font-size: 3.5vw;
     text-align: center;
-    // border: 1px solid white;
+    
+}
+#StatsCard .separator
+{
+  transform: rotate(20deg);
+  border: 1px solid white;
 }
 #StatsCard .icon
 {
