@@ -1,0 +1,82 @@
+#Navbar
+{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 10px 5%;
+    box-sizing: border-box;
+    position: fixed;
+    top:0;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    height: 80px;
+    // border-bottom: 2px solid white;
+
+}
+#Navbar #logo
+{
+    width: 10%;
+    div
+    {
+        height: 100%;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+}
+
+#Navbar>div:nth-child(2)
+{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    button
+    {
+        padding: 5px 10px;
+        background-color: transparent;
+        font-size: 20px;
+        border: none;
+        cursor: pointer;
+        transition: 0.3s;
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        box-sizing: border-box;
+    }
+    button:hover
+    {
+        color: maroon;
+        border-bottom: 5px solid maroon;
+    }
+    
+}
+#Navbar>div:nth-child(3)
+{
+    width: 25%;
+    display: flex;
+    justify-content:end;
+    align-items: center;
+    .menu
+    {
+        position: absolute;
+        height: auto;
+        width: auto;
+        right:5%;
+        top: 90%;
+        width: 100px;
+        text-align: center;
+        border-radius: 5px;
+        background-color: white;
+        color: black;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+}
+#Navbar>div:nth-child(3) > div > div:nth-child(1)
+{
+    height: 50px;
+    width: 50px;
+    object-fit: contain;
+    background-size: contain;
+    border-radius: 50%;
+    cursor: pointer;
+}
