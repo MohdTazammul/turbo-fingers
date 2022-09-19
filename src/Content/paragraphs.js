@@ -16,3 +16,12 @@ var paragraphs =
         ["What is Redux", `Redux is a predictable state container for JavaScript applications. It helps you write apps that behave consistently, run in different environments (client, server, and native), and are easy to test. Redux manages an application's state with a single global object called Store. Redux is a state management tool. Redux can be used with any JavaScript framework or library. Redux stores the state of the application, and the components can access the state from a state store. The state of your whole application is stored in an object tree within a single store. The only way to change the state is to initiate an action, an object describing what happened.`]
     ]
 }
+
+var getContent = (param) =>
+{
+    console.log(param)
+    console.log(paragraphs[param])
+    return paragraphs[param][0][1]
+}
+
+export default getContent
