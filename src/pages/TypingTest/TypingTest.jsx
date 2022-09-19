@@ -9,10 +9,6 @@ import SpeedLoader from "../../utills/SpeedLoader";
 import ScoreCard from "../../Components/ScoreCard/ScoreCard";
 import getContent from "../../Content/paragraphs";
 
-// var typingText = "A snake charmer is a person who moves the streets with different types of the banks of the river yamuna. It is snakes in his basket. He goes from one place to another to show various types of snakes and their tricks. He carries a pipe with which he plays music and snakes dance to his tune. He usually wears a colourful dress. The job of a snake charmer is quite dangerous. Some snakes are quite poisonous and can even bite him. It is not an easy task to catch and train them for the shows.";  
-// console.log("outside")
-
-// console.log(faltu)
 
 var wrongChars = {};
 var numberOfCharsTyped = 0;
@@ -27,36 +23,9 @@ function TypingTest() {
   var [accuracy, setAccuracy] = useState(0);
   const [scorePage, setScorePage] = useState(false);
   const [loader, setLoader] = useState(false);
-  
-  // function getData(param)
-  // {
-  //   return getContent(param);
-  // }
-
-  
-  const [text, setText] = useState(getContent("General").split(""));
-
-  // setTimeout(()=>{
-  //   setText([...getData("React").split("")])
-  // }, 2000)
-
-
-  // function fetchData()
-  // {
-    
-  // }
-  // fetchData();
-  // setText();
-  // var paragraphOption = Object.keys(paragraphs);
-//  useEffect(()=>{
-  // console.log(paragraphOption)
-  // var ind = Math.floor(Math.random() * (paragraphs.General.length));
-  // console.log(ind)
-  // console.log(paragraphs.General[ind][1])
-
-  // setText([...paragraphs.General[ind][1].split("")]);
-  // console.log(text)
-//  }, [])
+  let data = getContent();
+  const [text, setText] = useState(data[1].split(""));
+  const [heading, setHeading] = useState(data[0]);
  
 
   var wrongSumbissions = 0;
@@ -131,6 +100,7 @@ function TypingTest() {
             seconds={seconds}
           />
           <div id="content">
+            <h2>{heading}</h2>
             {text.map((el, i) => {
               return (
                 <span ref={(el) => { content.current[i] = el; }} key={i} >
@@ -138,10 +108,7 @@ function TypingTest() {
                 </span>
               );
             })}
-            <div className="option-menu">
-              <select>
-                {/* {paragraphOption.map(el=><option>{el}</option>)} */}
-              </select>
+            <div className="retake-test-btn">
               <button onClick={()=>window.location.reload()}>Retake Test</button>
             </div>
           </div>
