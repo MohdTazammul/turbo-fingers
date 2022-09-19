@@ -27,7 +27,7 @@
       box-sizing: border-box;
       h1 
         {
-        font-size: 4vw;
+        font-size: 3.5vw;
         text-align: center;
         padding: 0;
         margin: 0;
@@ -47,16 +47,16 @@
             color: #4d4d4d;
             // padding: 0 0 0.5vw 0px;
             text-align: justify;
-            font-size: 1.5vw;
+            font-size: 1.3vw;
             line-height: 1.5;
             letter-spacing: 0.5px;
           }
         button{
             width: 80%;
-            font-size: 24px;
+            font-size: 1.5vw;
             text-transform: uppercase;
-            letter-spacing: 5px;
-            padding: 10px 0px;
+            letter-spacing: 0.3vw;
+            padding: 0.7vw 0px;
             cursor: pointer;
         }
     }

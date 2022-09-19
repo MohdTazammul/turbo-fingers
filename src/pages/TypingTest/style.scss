@@ -8,7 +8,31 @@ $error : maroon;
     background-size: cover;
     height: 100vh;
     width: 100%;
+    .option-menu
+    {
+      width: 60%;
+      margin: auto;
+      margin-top: 50px;
+      display: grid;
+      grid-template-columns: repeat(2, 45%);
+      justify-content: space-between;
+      button{
+        background-color: black;
+        color: #5CCBF6;
+        font-size: 20px;
+      }
+    }
+    select
+    {
+      font-size: 20px;
+      width: 100%;
+      height: 40px;
+      color: #5CCBF6;
+      background-color: black;
+      text-align: center;
+    }
 }
+
 #content-cont{
     width: 80%;
     height: auto;
