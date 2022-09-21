@@ -2,7 +2,6 @@ $currentChar : green;
 $error : maroon;
 
 #main-container{
-    border: 1px solid black;
     background: url("https://images.pexels.com/photos/8264/pexels-photo.jpg?cs=srgb&dl=pexels-life-of-pix-8264.jpg&fm=jpg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -28,7 +27,7 @@ $error : maroon;
     height: auto;
     margin: auto;
     position: absolute;
-    top: 40%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: rgba(218, 218, 218, 0.5);
@@ -42,9 +41,9 @@ $error : maroon;
 {
   padding: 1em;
   box-sizing: border-box;
-  font-size: 2.2vw;
+  font-size: 2vw;
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-weight: 500;
+  // font-weight: 400;
   color: black;
   h2
   {
@@ -83,4 +82,38 @@ $error : maroon;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+.login-modal
+{
+  height: 100%;
+  width: 100%;
+  backdrop-filter: blur(5px);
+  >div
+  {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    // background: white;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    width: 30%;
+    padding: 5%;
+    box-sizing: border-box;
+    border: 1px solid grey;
+    >button{
+      position: absolute;
+      top: 5%;
+      right: 7%;
+      border: none;
+      background-color: transparent;
+      font-size: 24px;
+      transition: 500ms;
+      cursor: pointer;
+    }
+    >button:hover
+    {
+      transform: rotate(90deg);
+    }
+  }
 }

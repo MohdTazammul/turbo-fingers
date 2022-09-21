@@ -3,11 +3,15 @@ import { useState } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import API from "../../utills/API"
 import "./style.scss";
 import StatsCard from "../../Components/StatsCard/StatsCard";
 import SpeedLoader from "../../utills/SpeedLoader";
 import ScoreCard from "../../Components/ScoreCard/ScoreCard";
 import getContent from "../../Content/paragraphs";
+import {signInWithPopup, auth, provider} from '../../Firebase/config';
+import GoogleIcon from '@mui/icons-material/Google';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 
 var wrongChars = {};
@@ -26,7 +30,47 @@ function TypingTest() {
   let data = getContent();
   const [text, setText] = useState(data[1].split(""));
   const [heading, setHeading] = useState(data[0]);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [loginLoader, setLoginLoader] = useState(false);
  
+  let token = localStorage.getItem("token");
+    if(token)
+    {
+        fetch(`${API}/user/${token}`).then(resp=>resp.json())
+        .then(data=>{
+            if(!data.error)
+            {
+                setLoggedIn(true)
+            }
+        })
+    }
+
+    const onRegister =() =>
+    {
+        setLoginLoader(true);
+        signInWithPopup(auth, provider).then(resp=>{
+          
+                    var obj = {name:resp.user.displayName, email:resp.user.email, image:resp.user.photoURL, authProvider:"Google"};
+                    console.log(obj)
+                    fetch(`${API}/user`, {
+                        method:"POST",
+                        headers:{'Content-Type': 'application/json'},
+                        body : JSON.stringify(obj)
+                    }).then(resp=>resp.json()).then(resp=>{
+                        console.log(resp)
+                        if(!resp.error)
+                        {
+                            setLoginLoader(true);
+                            localStorage.setItem("token", resp.token)
+                        }
+                    })
+                }).catch(e=>{
+                    console.log(e.message);
+                })
+                .finally(()=>{
+                    setLoginLoader(false);
+                })
+    }
 
   var wrongSumbissions = 0;
   useEffect(() => {
@@ -117,8 +161,9 @@ function TypingTest() {
         <div id={"loader-cont"}>
           <SpeedLoader />
         </div>
-      ) : (
-        <div>
+      ) :
+      loggedIn?
+      <div>
           <ScoreCard
             speed={speed}
             accuracy={accuracy}
@@ -129,7 +174,33 @@ function TypingTest() {
             freqOfWrongChars={wrongChars}
           />
         </div>
-      )}
+        :
+        <div className="login-modal">
+            <div> 
+              <h2>Please sign in to see your typing test result</h2>
+            <div>
+              <LoadingButton style={{height:"50px", width:"100%", fontSize:"20px"}}
+                    size="small" 
+                    onClick={onRegister}
+                    startIcon={<GoogleIcon style={{backgroundColor:"white", padding:"1px", color:"#1876D1", borderRadius:"5px"}} />}
+                    loading={loginLoader}
+                    loadingPosition="start"
+                    variant="contained">
+                    Sign in With Google
+                </LoadingButton>
+              </div>
+              <div>
+                <h3>Benefits of signing in</h3>
+                <ul>
+                  <li>Keep track of your typing speed and accuracy.</li>
+                  <li>Detailed Typing Test result.</li>
+                  <li>Your rank will be shown on the leaderboard.</li>
+                </ul>
+              </div>
+              <button onClick={()=>window.location.reload()}>&#10060;</button>
+          </div>
+        </div>
+      }
       <div></div>
     </div>
   );
