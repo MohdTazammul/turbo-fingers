@@ -2,13 +2,97 @@
 {
     width: 80%;
     margin: auto;
-    height: 500px;
-    margin-top: 200px;
-    padding: 50px;
-    box-sizing: border-box  ;
-    display: flex;
-    gap: 30px;
-    color: white;
-    justify-content: space-between;
-    background-color: rgb(56, 50, 50);
+    padding: 5%;
+    padding-left: 0;
+    box-sizing: border-box;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(218, 218, 218, 0.5);
+    border: 1px solid grey;
+    text-align:left;
+    backdrop-filter: blur(5px);
+    border-radius: 20px;
+    overflow: hidden;
+    .middle-cont
+    {
+        display: grid;
+        align-items: center;
+        grid-template-columns: 45% 55%;
+        justify-content: space-between;
+        >div:nth-child(2)
+        {
+            display: grid;
+            grid-template-columns: repeat(3, 31%);
+            justify-content: space-between;
+            row-gap: 8%;
+            box-sizing: border-box;
+            >div
+            {
+                height: 100%;
+                border: 1px solid grey;
+                border-radius: 20px;
+                overflow: hidden;
+                height: 100px;
+            }
+            .card
+            {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                >div:nth-child(1)
+                {
+                    background-color: black;
+                    color: white;
+                    height: 40%;
+                    display: flex;
+                    font-size: 1.7vw;
+                    justify-content: center;
+                    align-items: center;
+                }
+                >div:nth-child(2)
+                {
+                    display: flex;
+                    height: 60%;
+                    align-items: center;
+                    justify-content:space-evenly;
+                    font-size: 2.6vw;
+                    padding: 5px;
+                    box-sizing: border-box;
+                    >div:nth-child(1)
+                    {
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        height: 80%;
+                        width: 30%;
+                    }
+                    .time
+                    {
+                        background-image: url("https://user-images.githubusercontent.com/90475607/191363331-aa203013-6928-47a3-8642-2f575860eba8.png");
+                    }
+                    .accuracy
+                    {
+                        background-image: url("https://user-images.githubusercontent.com/90475607/191363321-6c82804d-1084-4f21-843e-3f3a6447bac5.png");
+                    }
+                    .speed
+                    {
+                        background-image: url("https://user-images.githubusercontent.com/90475607/191363326-970f0632-4fdb-4f8d-8980-3669dee3abe1.png");
+                    }
+                    .words
+                    {
+                        background-image: url("https://user-images.githubusercontent.com/90475607/191363187-2d699e4e-10aa-4a68-80ea-beb64b5ce0ed.png");
+                    }
+                    .chars
+                    {
+                        background-image: url("https://user-images.githubusercontent.com/90475607/191363188-095e2595-82e1-4d00-83e4-af109fca3091.png");
+                    }
+                    .wrong-entries
+                    {
+                        background-image: url("https://user-images.githubusercontent.com/90475607/191363193-c57824e7-20aa-4b39-913f-1c75c8cfa40f.png");
+                    }
+                }
+            }
+        }
+    }
 }
