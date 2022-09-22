@@ -32,18 +32,22 @@ function TypingTest() {
   const [heading, setHeading] = useState(data[0]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [loginLoader, setLoginLoader] = useState(false);
+  const [userID, setUserID] = useState(false);
  
-  let token = localStorage.getItem("token");
+  useEffect(()=>{
+    let token = localStorage.getItem("token");
     if(token)
     {
         fetch(`${API}/user/${token}`).then(resp=>resp.json())
         .then(data=>{
             if(!data.error)
             {
+                setUserID(data.id)
                 setLoggedIn(true)
             }
         })
     }
+  }, [])
 
     const onRegister =() =>
     {
@@ -51,21 +55,23 @@ function TypingTest() {
         signInWithPopup(auth, provider).then(resp=>{
           
                     var obj = {name:resp.user.displayName, email:resp.user.email, image:resp.user.photoURL, authProvider:"Google"};
-                    console.log(obj)
+                    // console.log(obj)
                     fetch(`${API}/user`, {
                         method:"POST",
                         headers:{'Content-Type': 'application/json'},
                         body : JSON.stringify(obj)
                     }).then(resp=>resp.json()).then(resp=>{
-                        console.log(resp)
+                        // console.log(resp)
                         if(!resp.error)
                         {
-                            setLoginLoader(true);
+                            setUserID(resp.data._id)
+                            setLoginLoader(false);
+                            setLoggedIn(true);
                             localStorage.setItem("token", resp.token)
                         }
                     })
                 }).catch(e=>{
-                    console.log(e.message);
+                    alert(e.message);
                 })
                 .finally(()=>{
                     setLoginLoader(false);
@@ -77,13 +83,13 @@ function TypingTest() {
     var currentIndex = 0;
     content.current[0].classList.add("current");
     window.addEventListener("keypress", (e) => {
-      console.log(text)
+      // console.log(text)
       numberOfCharsTyped = currentIndex;
       if (currentIndex == 0) {
         setTimerFlag(true);
         setAccuracy(100);
       }
-      console.log(text[currentIndex], e.key);
+      // console.log(text[currentIndex], e.key);
       if (text[currentIndex] == e.key) {
         content.current[currentIndex].classList.remove("error");
         content.current[currentIndex].classList.remove("current");
@@ -171,6 +177,8 @@ function TypingTest() {
             seconds={seconds}
             minutes={minutes}
             paragraph={text}
+            heading={heading}
+            userID={userID}
             freqOfWrongChars={wrongChars}
           />
         </div>
@@ -179,7 +187,7 @@ function TypingTest() {
             <div> 
               <h2>Please sign in to see your typing test result</h2>
             <div>
-              <LoadingButton style={{height:"50px", width:"100%", fontSize:"20px"}}
+              <LoadingButton style={{padding:"10px", width:"100%", fontSize:"1.1vw"}}
                     size="small" 
                     onClick={onRegister}
                     startIcon={<GoogleIcon style={{backgroundColor:"white", padding:"1px", color:"#1876D1", borderRadius:"5px"}} />}
