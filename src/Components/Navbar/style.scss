@@ -79,9 +79,12 @@
 {
     height: 60px;
     width: 60px;
+    background-image: url("https://cdn-icons-png.flaticon.com/128/4128/4128176.png");
+    background-color: grey;
     object-fit: contain;
     background-size: contain;
     background-repeat: no-repeat;
     border-radius: 50%;
+    border:1px solid black;
     cursor: pointer;
 }

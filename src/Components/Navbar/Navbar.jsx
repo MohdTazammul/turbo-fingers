@@ -15,7 +15,8 @@ function Navbar() {
 
     const [showMenu, setShowMenu] = useState(false);
 
-    let token = localStorage.getItem("token");
+    useEffect(()=>{
+        let token = localStorage.getItem("token");
     if(token)
     {
         fetch(`${API}/user/${token}`).then(resp=>resp.json())
@@ -23,24 +24,26 @@ function Navbar() {
             if(!data.error)
             {
                 setLoggedIn(true)
+                // console.log(data)
                 setUserImage(data.image)
             }
         })
     }
+    }, [])
 
     const onRegister =() =>
     {
         setLoader(true);
         signInWithPopup(auth, provider).then(resp=>{
-          
+                    // console.log(resp)
                     var obj = {name:resp.user.displayName, email:resp.user.email, image:resp.user.photoURL, authProvider:"Google"};
-                    console.log(obj)
+                    // console.log(obj)
                     fetch(`${API}/user`, {
                         method:"POST",
                         headers:{'Content-Type': 'application/json'},
                         body : JSON.stringify(obj)
                     }).then(resp=>resp.json()).then(resp=>{
-                        console.log(resp)
+                        // console.log(resp)
                         if(!resp.error)
                         {
                             setLoggedIn(true);
@@ -49,7 +52,7 @@ function Navbar() {
                         }
                     })
                 }).catch(e=>{
-                    console.log(e.message);
+                    alert(e.message);
                 })
                 .finally(()=>{
                     setLoader(false);
