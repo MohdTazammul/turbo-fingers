@@ -15,12 +15,35 @@
     backdrop-filter: blur(5px);
     border-radius: 20px;
     overflow: hidden;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    .top-cont
+    {
+        h3
+        {
+            background-color:antiquewhite;
+            font-weight: 400;
+            margin: 0;
+            font-size: 1.5vw !important;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            margin-left: 7%;
+            font-size: 2vw;
+            text-align: center;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+        }
+    }
     .middle-cont
     {
         display: grid;
         align-items: center;
         grid-template-columns: 45% 55%;
         justify-content: space-between;
+        >div:nth-child(1)
+        {
+            display: flex;
+            align-items: center;
+        }
         >div:nth-child(2)
         {
             display: grid;
@@ -38,9 +61,11 @@
             }
             .card
             {
+                box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
+                transition: 500ms;
                 >div:nth-child(1)
                 {
                     background-color: black;
@@ -93,6 +118,51 @@
                     }
                 }
             }
+            .card:hover
+            {
+                cursor: pointer;
+                transform: scale(1.05);
+            }
+        }
+    }
+    .bottom-cont
+    {
+        padding-left: 7%;
+        // border: 1px solid red;
+        display: grid;
+        margin-top: 50px;
+        grid-template-columns: 35% 60%;
+        justify-content: space-between;
+        text-align: center;
+
+        >div:nth-child(1)
+        {
+            display: flex;
+            align-items: center;
+            button{
+                width: 100%;
+                font-size: 20px;
+                padding: 10px;
+                background-color: black;
+                color: #5CCBF6;
+                border: none;
+                cursor: pointer;
+            }
+        }
+        .tags
+        {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        .chip
+        {
+            background-color: maroon;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 20px;
         }
     }
 }
