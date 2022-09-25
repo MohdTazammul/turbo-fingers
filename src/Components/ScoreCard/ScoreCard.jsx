@@ -48,7 +48,7 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
           setFeedbackTheme("2")
         }
       }
-      else if(speed<40)
+      else if(speed>=30)
       {
         if(accuracy>=95)
         {
@@ -66,7 +66,7 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
           setFeedbackTheme("3")
         }
       }
-      else if(speed<30)
+      else if(speed>=20)
       {
         if(accuracy>=95)
         {
@@ -84,7 +84,7 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
           setFeedbackTheme("3")
         }
       }
-      else if(speed<20)
+      else 
       {
         if(accuracy>=95)
         {
@@ -101,6 +101,8 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
 
 
     useEffect(()=>{
+      if(feedback=="")
+      return
       var obj = {
         speed: +speed,
         accuracy:accuracy,
@@ -113,7 +115,6 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
         paragraphTitle : heading,
         user:userID
       }
-      console.log(obj);
       fetch(`${API}/score/${token}`, {
         method:"POST",
         headers:{'Content-Type': 'application/json'},
@@ -121,9 +122,9 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
     }).then(resp=>resp.json()).then(resp=>{
       console.log(resp)
 
-    })
+    }, [])
     
-  }, [])
+  }, [feedback])
     var style1 = {
       color:"#3B763D",
       backgroundColor:"#DFEFD8"
