@@ -67,7 +67,7 @@ function Navbar() {
         <div>
             <button onClick={()=>navigate("/")}>Home</button>
             <button onClick={()=>navigate("/Typing-Test")}>Typing Test</button>
-            <button>Leaderboard</button>
+            <button onClick={()=>navigate("/Leaderboard")}>Leaderboard</button>
         </div>
         <div>
             {loggedIn?
