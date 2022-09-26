@@ -103,8 +103,12 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
     useEffect(()=>{
       if(feedback=="")
       return
+
+      var netSpeed = (((characters-typos) / ((minutes*60)+seconds)) * (60 / 5)).toFixed(3);
+
       var obj = {
-        speed: +speed,
+        grossSpeed: +speed,
+        netSpeed: netSpeed,
         accuracy:accuracy,
         totalSeconds:(minutes*60)+seconds,
         totalWords:words,
@@ -115,6 +119,9 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
         paragraphTitle : heading,
         user:userID
       }
+      // var WPM = ((characters / obj.totalSeconds) * (60 / 5)).toFixed(3);
+      // console.log(WPM)
+      
       fetch(`${API}/score/${token}`, {
         method:"POST",
         headers:{'Content-Type': 'application/json'},
@@ -122,7 +129,7 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
     }).then(resp=>resp.json()).then(resp=>{
       console.log(resp)
 
-    }, [])
+    })
     
   }, [feedback])
     var style1 = {
@@ -174,14 +181,14 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
                 <div>Accuracy</div>
                   <div>
                     <div className='accuracy'></div>
-                    <div>{accuracy}<span style={{fontSize:"20px"}}>(%)</span></div>
+                    <div>{accuracy}<span style={{fontSize:"1.2vw"}}>(%)</span></div>
                   </div>
               </div>
               <div className='card'>
-                <div>Speed</div>
+                <div>Speed <span style={{fontSize:"1.2vw"}}> (gross)</span></div>
                   <div>
                     <div className='speed'></div>
-                    <div>{speed}<span style={{fontSize:"20px"}}>(wpm)</span></div>
+                    <div>{speed}<span style={{fontSize:"1.2vw"}}>(wpm)</span></div>
                   </div>
               </div>
               <div className='card'>
