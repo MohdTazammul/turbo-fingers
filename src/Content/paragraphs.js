@@ -14,16 +14,18 @@ var paragraphs =
         ["What is React Component?", 'Components are rightly defined as the essential building blocks of any application created with React, and a single app most often consists of many components. A component is in essence, a piece of the user interface - splitting the user interface into reusable and independent parts, each of which can be processed separately. We can reuse a component used in one area of the application in another area. This speeds up development and helps avoid cluttering of code. A component can contain within itself, several more components.  This helps in creating more complex design and interaction elements.'],
         
         ["What is Redux", `Redux is a predictable state container for JavaScript applications. It helps you write apps that behave consistently, run in different environments (client, server, and native), and are easy to test. Redux manages an application's state with a single global object called Store. Redux is a state management tool. Redux can be used with any JavaScript framework or library. Redux stores the state of the application, and the components can access the state from a state store. The state of your whole application is stored in an object tree within a single store. The only way to change the state is to initiate an action, an object describing what happened.`]
-    ],
-    testing:["What is HTMl", "html is markup language."]
+    ]
+    // testing:["What is HTMl", "html is markup language."]
 }
 
 var getContent = () =>
 {
     var keys = Object.keys(paragraphs)
     var key = keys[Math.floor(Math.random() * keys.length)];
+    // console.log(key)
     var data  = paragraphs[key][Math.floor(Math.random() * paragraphs[key].length)]
-    // return data;
-    return paragraphs.testing
+    // console.log(key, data)
+    return data;
+    // return paragraphs.testing
 }
 export default getContent
