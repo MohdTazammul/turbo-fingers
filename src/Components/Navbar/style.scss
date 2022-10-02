@@ -66,10 +66,13 @@
         width: auto;
         right:5%;
         top: 90%;
-        width: 100px;
+        width: 7%;
+        font-size: 1.1vw;
         text-align: center;
         border-radius: 5px;
+        border: 1px solid grey;
         background-color: white;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
         color: black;
         box-sizing: border-box;
         cursor: pointer;
@@ -77,8 +80,8 @@
 }
 #Navbar>div:nth-child(3) > div > div:nth-child(1)
 {
-    height: 60px;
-    width: 60px;
+    height: 50px;
+    width: 50px;
     background-image: url("https://cdn-icons-png.flaticon.com/128/4128/4128176.png");
     background-color: grey;
     object-fit: contain;
