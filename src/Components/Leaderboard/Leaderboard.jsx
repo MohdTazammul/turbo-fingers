@@ -1,4 +1,5 @@
 import React from 'react'
+import {useSelector, useDispatch} from "react-redux";
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -58,10 +59,16 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   const silverBadge = "https://user-images.githubusercontent.com/90475607/192353115-b5136289-9bf2-4d79-b580-89bc8f18a613.png";
   
   const bronze = {
+    // backgroundImage:"url(https://www.macmillandictionary.com/external/slideshow/full/Bronze_full.png)",
+    // backgroundSize:"cover",
+    // backgroundRepeat:"no-repeat"
     background: `rgb(162,87,65)`,
     background: `linear-gradient(90deg, rgba(162,87,65,1) 0%, rgba(252,206,187,1) 50%, rgba(162,87,65,1) 96%)`
   }
   const bronzeBadge = "https://user-images.githubusercontent.com/90475607/192353208-751e8773-5a0d-4620-a4eb-08d10f5db110.png";
+   
+  // const dispatch = useDispatch();
+
   
 
 function Leaderboard() {
@@ -69,19 +76,28 @@ function Leaderboard() {
   const [data, setData] = useState([]);
   const [userID, setUserID] = useState("");
 
+  const storeData = useSelector((state) => state)
     useEffect(()=>{
+        if(storeData.isLogin)
+        {
+            setUserID(storeData.data._id);
+        }
+        else
+        {
+            setUserID("");
+        }
+    }, [storeData])
 
-      const token = localStorage.getItem("token");
-        fetch(API+`/leaderboard/${token?token:""}`).then(resp=>resp.json())
+
+    useEffect(()=>{
+        fetch(API+`/leaderboard`).then(resp=>resp.json())
         .then(resp=>{
-            if(resp.userID)
-              setUserID(resp.userID);
-            let copyData = [];
+            let filteredData = [];
             resp.data.map((el,i)=>{
-              // console.log(el.updatedAt.getDate())
-                copyData.push([i+1, el.user.image, el.user.name, el.user.email.split("@")[0], el.bestScore.netSpeed, el.updatedAt, el.user._id]);
+              var d=new Date(el.updatedAt); 
+                filteredData.push([i+1, el.user.image, el.user.name, el.user.email.split("@")[0], el.bestScore.netSpeed, d.toLocaleString(), el.user._id]);
             })
-            setData(copyData);
+            setData(filteredData);
         })
     }, [])
 
@@ -104,13 +120,13 @@ function Leaderboard() {
 
   return (
     <div id='leaderboard'>
-        <div id='upper-sction'>
+        <div id='upper-section'>
             <h1>Leaderboard</h1>
         </div>
         <div id='rank-secion'>
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer sx={{ maxHeight: "80vh" }}>
-        <Table stickyHeader aria-label="Leaderboard" size='small'>
+        <Table stickyHeader aria-label="Leaderboard" size='small' >
           <TableHead>
             <TableRow>
                 <StyledTableCell align='center' style={{ minWidth: "70px" }}>
@@ -136,11 +152,11 @@ function Leaderboard() {
           <TableBody>
            {data
            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-           .map((el)=>{
+           .map((el, i)=>{
             return (
-                <StyledTableRow style={el[0]==1?gold:el[0]==2?silver:el[0]==3?bronze:{}}>
-                    <StyledTableCell align='center'> {el[0] == 1? <img src={goldBadge} height={"50px"} /> : el[0]==2?<img src={silverBadge} height={"50px"} />: el[0]==3 ? <img src={bronzeBadge} height={"50px"} /> : (el[0]%10)==1 ? el[0]+"st" : (el[0]%10)==2 ? el[0]+"nd" : (el[0]%10) == 3 ? el[0]+"rd" : el[0]+"th"}</StyledTableCell>
-                    <StyledTableCell><img style={{height:"50px", width:"50px", borderRadius:"50%"}} alt={el[2]} src={el[1]} /></StyledTableCell>
+                <StyledTableRow key={i} style={el[0]==1?gold:el[0]==2?silver:el[0]==3?bronze:{}}>
+                    <StyledTableCell align='center'> {el[0] == 1? <img src={goldBadge} height={"40px"} /> : el[0]==2?<img src={silverBadge} height={"40px"} />: el[0]==3 ? <img src={bronzeBadge} height={"40px"} /> : (el[0]%10)==1 ? el[0]+"st" : (el[0]%10)==2 ? el[0]+"nd" : (el[0]%10) == 3 ? el[0]+"rd" : el[0]+"th"}</StyledTableCell>
+                    <StyledTableCell><img style={{height:"40px", borderRadius:"50%"}} alt={el[2]} src={el[1]} /></StyledTableCell>
                     <StyledTableCell>{userID&&userID==el[6]?<StarRoundedIcon color='primary' style={{marginBottom:"-5px"}} />:""} {el[2]}</StyledTableCell>
                     <StyledTableCell>{el[3]}</StyledTableCell>
                     <StyledTableCell>{el[4]}</StyledTableCell>
