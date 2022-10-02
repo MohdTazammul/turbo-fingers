@@ -27,7 +27,7 @@ $error : maroon;
     height: auto;
     margin: auto;
     position: absolute;
-    top: 50%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: rgba(218, 218, 218, 0.5);
@@ -41,9 +41,9 @@ $error : maroon;
 {
   padding: 1em;
   box-sizing: border-box;
-  font-size: 2vw;
-  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  // font-weight: 400;
+  font-size: 1.8vw;
+  font-family:serif;
+  font-weight: 400;
   color: black;
   h2
   {

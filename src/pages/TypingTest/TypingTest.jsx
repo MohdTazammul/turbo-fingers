@@ -1,8 +1,10 @@
 import React from "react";
+import {useSelector, useDispatch} from "react-redux";
 import { useState } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { storeToken } from "../../Redux/action";
 import API from "../../utills/API"
 import "./style.scss";
 import StatsCard from "../../Components/StatsCard/StatsCard";
@@ -34,20 +36,37 @@ function TypingTest() {
   const [loginLoader, setLoginLoader] = useState(false);
   const [userID, setUserID] = useState(false);
  
-  useEffect(()=>{
-    let token = localStorage.getItem("token");
-    if(token)
-    {
-        fetch(`${API}/user/${token}`).then(resp=>resp.json())
-        .then(data=>{
-            if(!data.error)
-            {
-                setUserID(data.id)
-                setLoggedIn(true)
-            }
-        })
-    }
-  }, [])
+  const dispatch = useDispatch();
+
+  const storeData = useSelector((state) => state)
+    useEffect(()=>{
+        if(storeData.isLogin)
+        {
+            setLoggedIn(true);
+            setUserID(storeData.data._id);
+        }
+        else
+        {
+            setLoggedIn(false);
+        }
+    }, [storeData])
+
+
+    useEffect(()=>{
+      let backup = JSON.parse(localStorage.getItem("backup"));
+      if(backup)
+      {
+        localStorage.removeItem("backup")
+      dispatch(storeToken({token:backup.token, data:backup.data}))
+      }
+    }, [])
+
+  const RetakeTest = () =>
+  {
+    console.log("Initiate Retake test process")
+    localStorage.setItem("backup", JSON.stringify(storeData));
+    window.location.reload();
+  }
 
     const onRegister =() =>
     {
@@ -67,7 +86,8 @@ function TypingTest() {
                             setUserID(resp.data._id)
                             setLoginLoader(false);
                             setLoggedIn(true);
-                            localStorage.setItem("token", resp.token)
+                            dispatch(storeToken({token:resp.token, data:resp.data}));
+                            // localStorage.setItem("token", resp.token)
                         }
                     })
                 }).catch(e=>{
@@ -99,6 +119,7 @@ function TypingTest() {
           setTimerFlag(false);
           setLoader(true);
           setTimeout(() => {
+            // setLoader(false);
             setScorePage(true);
           }, 1000);
         } else content.current[currentIndex].classList.add("current");
@@ -159,7 +180,7 @@ function TypingTest() {
               );
             })}
             <div className="retake-test-btn">
-              <button onClick={()=>window.location.reload()}>Retake Test</button>
+              <button onClick={RetakeTest}>Retake Test</button>
             </div>
           </div>
         </div>
@@ -180,6 +201,7 @@ function TypingTest() {
             heading={heading}
             userID={userID}
             freqOfWrongChars={wrongChars}
+            RetakeTest
           />
         </div>
         :
@@ -205,7 +227,7 @@ function TypingTest() {
                   <li>Your rank will be shown on the leaderboard.</li>
                 </ul>
               </div>
-              <button onClick={()=>window.location.reload()}>&#10060;</button>
+              <button onClick={RetakeTest}>&#10060;</button>
           </div>
         </div>
       }
