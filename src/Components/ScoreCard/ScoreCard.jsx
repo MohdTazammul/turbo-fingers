@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
+import {useSelector, useDispatch} from "react-redux";
 import "./style.scss"
 import GaugeChart from "react-gauge-chart";
 import { useEffect } from 'react';
 import API from "../../utills/API";
 function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,heading, userID, freqOfWrongChars}) {
-  let token = localStorage.getItem("token");
-  if(!token)
-    window.location.reload();
 
   var words = paragraph.join("").split(" ").length;
   var characters = paragraph.length;
@@ -21,8 +19,6 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
 
     var [feedback, setFeedback] = useState("");
     var [feedbackTheme, setFeedbackTheme] = useState("");
-
-
 
     useEffect(()=>{
       if(speed>=40)
@@ -119,10 +115,8 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
         paragraphTitle : heading,
         user:userID
       }
-      // var WPM = ((characters / obj.totalSeconds) * (60 / 5)).toFixed(3);
-      // console.log(WPM)
       
-      fetch(`${API}/score/${token}`, {
+      fetch(`${API}/score`, {
         method:"POST",
         headers:{'Content-Type': 'application/json'},
         body : JSON.stringify(obj)
@@ -144,6 +138,15 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
       color:"#833534",
       backgroundColor:"#F2DEDD"
     }
+
+    const storeData = useSelector((state) => state)
+
+    const RetakeTest = () =>
+  {
+    console.log("Initiate Retake test process")
+    localStorage.setItem("backup", JSON.stringify(storeData));
+    window.location.reload();
+  }
 
   return (
     
@@ -199,7 +202,7 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
                   </div>
               </div>
               <div className='card'>
-                <div>Characters</div>
+                <div>Characters</div> 
                   <div>
                     <div className='chars'></div>
                     <div>{characters}</div>
@@ -215,7 +218,7 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
             </div>
         </div>
         <div className='bottom-cont'>
-          <div><button onClick={()=>window.location.reload()}>Retake Test</button></div>
+          <div><button onClick={RetakeTest}>Retake Test</button></div>
           <div>
             {mistakes.length == 0?
             <h2>No typos</h2>
@@ -225,7 +228,7 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
             <div className='tags'>
             {
               mistakes.map((el, i)=>{
-                return <div key={i} className='chip'>{el[0]} : {el[1]}</div>
+                return el && el[0]?<div key={i} className='chip'>{el[0]} - {el[1]}</div>:"";
               })
             }
             </div>
