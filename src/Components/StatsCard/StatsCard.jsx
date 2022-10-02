@@ -19,7 +19,7 @@ function StatsCard({ minutes, seconds, accuracy, speed }) {
           icon="material-symbols:speed-rounded"
           color="#5bccf6"
         />
-        <span id="speed">{isNaN(speed) ? 0 : speed}</span>
+        <span id="speed">{isNaN(speed) || speed=="Infinity" ? 0 : speed}</span>
       </div>
       <div className="separator"><span></span></div>
       <div>
