@@ -12,13 +12,18 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
     var typos=0
     for(var key in freqOfWrongChars)
     {
-      typos+=freqOfWrongChars[key];
+      if(key)
+      {
+        typos+=freqOfWrongChars[key];
       mistakes.push([key==" "?"space":key, freqOfWrongChars[key]]);
+      }
     }
     mistakes.sort((a,b)=>b[1]-a[1])
 
     var [feedback, setFeedback] = useState("");
     var [feedbackTheme, setFeedbackTheme] = useState("");
+
+    var [netSpeed, setNetSpeed] = useState(0);
 
     useEffect(()=>{
       if(speed>=40)
@@ -100,11 +105,11 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
       if(feedback=="")
       return
 
-      var netSpeed = (((characters-typos) / ((minutes*60)+seconds)) * (60 / 5)).toFixed(3);
-
+      var temp = (((characters-typos) / ((minutes*60)+seconds)) * (60 / 5)).toFixed(3);
+      setNetSpeed(temp)
       var obj = {
         grossSpeed: +speed,
-        netSpeed: netSpeed,
+        netSpeed: temp,
         accuracy:accuracy,
         totalSeconds:(minutes*60)+seconds,
         totalWords:words,
@@ -188,10 +193,10 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
                   </div>
               </div>
               <div className='card'>
-                <div>Speed <span style={{fontSize:"1.2vw"}}> (gross)</span></div>
+                <div>Net Speed</div>
                   <div>
                     <div className='speed'></div>
-                    <div>{speed}<span style={{fontSize:"1.2vw"}}>(wpm)</span></div>
+                    <div>{netSpeed}<span style={{fontSize:"1.2vw"}}>(wpm)</span></div>
                   </div>
               </div>
               <div className='card'>
