@@ -13,6 +13,8 @@ import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import IconButton from "@mui/material/IconButton";
 import Logout from "@mui/icons-material/Logout";
+import FeedbackIcon from '@mui/icons-material/Feedback';
+import Divider from '@mui/material/Divider';
 
 import API from "../../utills/API";
 import "./style.scss";
@@ -34,25 +36,11 @@ function Navbar() {
     setAnchorEl(null);
   };
 
-  // useEffect(() => {
-  //   let token = localStorage.getItem("token");
-  //   if (token) {
-  //     fetch(`${API}/user/${token}`)
-  //       .then((resp) => resp.json())
-  //       .then((data) => {
-  //         if (!data.error) {
-  //           setLoggedIn(true);
-  //           setUserImage(data.image);
-  //         }
-  //       });
-  //   }
-  // }, []);
-
-
   const dispatch = useDispatch();
 
   const storeData = useSelector((state) => state)
     useEffect(()=>{
+      console.log(storeData)
         if(storeData.isLogin)
         {
             setLoggedIn(true);
@@ -154,8 +142,8 @@ function Navbar() {
               transformOrigin={{ horizontal: "right", vertical: "top" }}
               anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
             >
-              <MenuItem>
-                <Avatar /> Profile
+              <MenuItem onClick={()=>navigate("/profile")}>
+                <Avatar fontSize="small" /> Profile
               </MenuItem>
               <MenuItem onClick={()=>{
                 dispatch(logout());
@@ -165,6 +153,18 @@ function Navbar() {
                 </ListItemIcon>
                 Logout
               </MenuItem>
+              <Divider />
+              <MenuItem onClick={()=>{
+                window
+                .open("https://forms.gle/LcFuqnDdNaJ19rzk9", "_blank")
+                .focus()
+              }}>
+                <ListItemIcon>
+                  <FeedbackIcon fontSize="medium" />
+                </ListItemIcon>
+                Feedback Form
+              </MenuItem>
+              
             </Menu>
           </div>
         ) : (
