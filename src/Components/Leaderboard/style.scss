@@ -3,6 +3,7 @@
     width: 80%;
     margin: auto;
     margin-top: 9%;
+    min-height: 90vh;
     #upper-section
     {
         text-align: center;
@@ -14,6 +15,22 @@
             margin: auto;
             text-transform:uppercase;
             font-family:'Times New Roman', Times, serif;
+        }
+    }
+    #rank-section
+    {
+        .leaderboard-loader
+        {
+            height: 20vw;
+            width: 20vw;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-image: url("https://cdn.dribbble.com/users/600626/screenshots/2944614/loading_12.gif");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
         }
     }
 }

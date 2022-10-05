@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react'
 import "./style.scss"
 import API from "../../utills/API";
 import { red, yellow } from '@mui/material/colors';
+import Footer from '../Footer/Footer';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -75,6 +76,7 @@ function Leaderboard() {
 
   const [data, setData] = useState([]);
   const [userID, setUserID] = useState("");
+  const [loader, setLoader] = useState(true);
 
   const storeData = useSelector((state) => state)
     useEffect(()=>{
@@ -95,15 +97,13 @@ function Leaderboard() {
             let filteredData = [];
             resp.data.map((el,i)=>{
               var d=new Date(el.updatedAt); 
-                filteredData.push([i+1, el.user.image, el.user.name, el.user.email.split("@")[0], el.bestScore.netSpeed, d.toLocaleString(), el.user._id]);
+                filteredData.push([i+1, el.user.image, el.user.name, el.user.email.split("@")[0], (+el.bestScore.netSpeed).toFixed(2), d.toLocaleString(), el.user._id]);
             })
             setData(filteredData);
+            setLoader(false)
         })
     }, [])
 
-    useEffect(()=>{
-        console.log(data)
-    }, [data])
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -119,68 +119,77 @@ function Leaderboard() {
   
 
   return (
+   <>
     <div id='leaderboard'>
         <div id='upper-section'>
             <h1>Leaderboard</h1>
         </div>
-        <div id='rank-secion'>
+        <div id='rank-section'>
+       {
+        loader?
+        <div className='leaderboard-loader'></div>
+        :
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: "80vh" }}>
-        <Table stickyHeader aria-label="Leaderboard" size='small' >
-          <TableHead>
-            <TableRow>
-                <StyledTableCell align='center' style={{ minWidth: "70px" }}>
-                    Rank
-                </StyledTableCell>
-                <StyledTableCell>
-                    Avatar
-                </StyledTableCell>
-                <StyledTableCell style={{ minWidth: "100px" }}>
-                    Name
-                </StyledTableCell>
-                <StyledTableCell style={{ minWidth: "100px" }}>
-                    Username
-                </StyledTableCell>
-                <StyledTableCell style={{ minWidth: "50px" }}>
-                    Net Speed
-                </StyledTableCell>
-                <StyledTableCell style={{ minWidth: "100px" }}>
-                    Test Taken on
-                </StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-           {data
-           .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-           .map((el, i)=>{
-            return (
-                <StyledTableRow key={i} style={el[0]==1?gold:el[0]==2?silver:el[0]==3?bronze:{}}>
-                    <StyledTableCell align='center'> {el[0] == 1? <img src={goldBadge} height={"40px"} /> : el[0]==2?<img src={silverBadge} height={"40px"} />: el[0]==3 ? <img src={bronzeBadge} height={"40px"} /> : (el[0]%10)==1 ? el[0]+"st" : (el[0]%10)==2 ? el[0]+"nd" : (el[0]%10) == 3 ? el[0]+"rd" : el[0]+"th"}</StyledTableCell>
-                    <StyledTableCell><img style={{height:"40px", borderRadius:"50%"}} alt={el[2]} src={el[1]} /></StyledTableCell>
-                    <StyledTableCell>{userID&&userID==el[6]?<StarRoundedIcon color='primary' style={{marginBottom:"-5px"}} />:""} {el[2]}</StyledTableCell>
-                    <StyledTableCell>{el[3]}</StyledTableCell>
-                    <StyledTableCell>{el[4]}</StyledTableCell>
-                    <StyledTableCell>{el[5]}</StyledTableCell>
-                </StyledTableRow>
-            )
-           })
-           }
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={data.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </Paper>
+        <TableContainer sx={{ maxHeight: "80vh" }}>
+          <Table stickyHeader aria-label="Leaderboard" size='small' >
+            <TableHead>
+              <TableRow>
+                  <StyledTableCell align='center' style={{ minWidth: "70px" }}>
+                      Rank
+                  </StyledTableCell>
+                  <StyledTableCell>
+                      Avatar
+                  </StyledTableCell>
+                  <StyledTableCell style={{ minWidth: "100px" }}>
+                      Name
+                  </StyledTableCell>
+                  <StyledTableCell style={{ minWidth: "100px" }}>
+                      Username
+                  </StyledTableCell>
+                  <StyledTableCell style={{ minWidth: "50px" }}>
+                      Net Speed
+                  </StyledTableCell>
+                  <StyledTableCell style={{ minWidth: "100px" }}>
+                      Test Taken on
+                  </StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+             {data
+             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+             .map((el, i)=>{
+              return (
+                  <StyledTableRow key={i} style={el[0]==1?gold:el[0]==2?silver:el[0]==3?bronze:{}}>
+                      <StyledTableCell align='center'> {el[0] == 1? <img src={goldBadge} height={"40px"} /> : el[0]==2?<img src={silverBadge} height={"40px"} />: el[0]==3 ? <img src={bronzeBadge} height={"40px"} /> : (el[0]%10)==1 ? el[0]+"st" : (el[0]%10)==2 ? el[0]+"nd" : (el[0]%10) == 3 ? el[0]+"rd" : el[0]+"th"}</StyledTableCell>
+                      <StyledTableCell><img style={{height:"40px", borderRadius:"50%"}} alt={el[2]} src={el[1]} /></StyledTableCell>
+                      <StyledTableCell>{userID&&userID==el[6]?<StarRoundedIcon color='primary' style={{marginBottom:"-5px"}} />:""} {el[2]}</StyledTableCell>
+                      <StyledTableCell>{el[3]}</StyledTableCell>
+                      <StyledTableCell>{el[4]}</StyledTableCell>
+                      <StyledTableCell>{el[5]}</StyledTableCell>
+                  </StyledTableRow>
+              )
+             })
+             }
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={data.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </Paper>
+       }
   
         </div>
     </div>
+   <Footer />
+   </>
+   
   )
 }
 
