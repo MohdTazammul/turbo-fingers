@@ -1,0 +1,37 @@
+#Profile-page
+{
+    width: 80%;
+    min-height: 80vh;
+    margin: auto;
+    border: 1px solid grey;
+    border-radius: 20px;
+    padding: 5%;
+    padding-top: 1%;
+    box-sizing: border-box;
+    margin-top: 120px;
+    margin-bottom: 100px;
+    h1
+    {
+        text-align: center;
+    }
+    .upper-cont
+    {
+        width: 100%;
+        margin: 3% 0;
+        display: grid;
+        grid-template-columns: 10% 20%;
+        justify-content: space-evenly;
+        >div:nth-child(1)
+        {
+            width: 150px;
+            height: 150px;
+            border-radius: 20%;
+            background-size: cover;
+        }
+    }
+    .profile-graph
+    {
+        position: relative;
+    }
+    
+}
