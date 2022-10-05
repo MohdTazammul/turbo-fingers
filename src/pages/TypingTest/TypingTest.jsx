@@ -57,13 +57,14 @@ function TypingTest() {
       if(backup)
       {
         localStorage.removeItem("backup")
-      dispatch(storeToken({token:backup.token, data:backup.data}))
+        if(backup.isLogin)
+          dispatch(storeToken({token:backup.token, data:backup.data}))
       }
     }, [])
 
   const RetakeTest = () =>
   {
-    console.log("Initiate Retake test process")
+    // console.log("Initiate Retake test process")
     localStorage.setItem("backup", JSON.stringify(storeData));
     window.location.reload();
   }
@@ -123,10 +124,15 @@ function TypingTest() {
             setScorePage(true);
           }, 1000);
         } else content.current[currentIndex].classList.add("current");
-      } else {
+      } else 
+      {
+        // console.log(wrongChars, text[currentIndex])
+       if(text[currentIndex])
+       {
         wrongChars[text[currentIndex]] = wrongChars[text[currentIndex]]
-          ? wrongChars[text[currentIndex]] + 1
-          : 1;
+        ? wrongChars[text[currentIndex]] + 1
+        : 1;
+       }
         content.current[currentIndex].classList.remove("current");
         content.current[currentIndex].classList.add("error");
         wrongSumbissions++;
