@@ -20,6 +20,7 @@
     "react-redux": "^8.0.4",
     "react-router-dom": "^6.4.0",
     "react-scripts": "5.0.1",
+    "recharts": "^2.1.14",
     "redux": "^4.2.0",
     "sass": "^1.54.9",
     "web-vitals": "^2.1.4"
