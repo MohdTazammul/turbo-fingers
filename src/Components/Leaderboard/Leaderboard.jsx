@@ -1,5 +1,5 @@
 import React from 'react'
-import {useSelector, useDispatch} from "react-redux";
+import {useSelector} from "react-redux";
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -14,7 +14,6 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { useEffect, useState } from 'react'
 import "./style.scss"
 import API from "../../utills/API";
-import { red, yellow } from '@mui/material/colors';
 import Footer from '../Footer/Footer';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -31,7 +30,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.action.hover,
     },
-    // hide last border
     '&:last-child td, &:last-child th': {
       border: 0,
     },
@@ -42,34 +40,20 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     backgroundImage:"url(https://static.vecteezy.com/system/resources/thumbnails/002/011/509/small/gold-metal-texture-background-illustration-vector.jpg)",
     backgroundSize:"cover",
     backgroundRepeat:"no-repeat"
-    // background: `radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
-    // radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%)`
-
-//     background: `rgb(231,179,26)`,
-// background: `linear-gradient(90deg, rgba(231,179,26,1) 0%, rgba(254,248,137,1) 50%, rgba(231,179,26,1) 96%)`,
-// fontSize:"20px"
   }
   const goldBadge = "https://user-images.githubusercontent.com/90475607/192353043-6a0fe803-8e29-4639-84f8-9ba602bbadc9.png";
   const silver = {
     backgroundImage:"url(https://static.vecteezy.com/system/resources/thumbnails/007/306/898/small/stylish-panoramic-background-silver-steel-metal-texture-vector.jpg)",
     backgroundSize:"cover",
     backgroundRepeat:"no-repeat"
-//     background: `rgb(161,161,161)`,
-// background: `linear-gradient(90deg, rgba(161,161,161,1) 0%, rgba(234,234,234,1) 51%, rgba(161,161,161,1) 96%)`,
   }
   const silverBadge = "https://user-images.githubusercontent.com/90475607/192353115-b5136289-9bf2-4d79-b580-89bc8f18a613.png";
   
   const bronze = {
-    // backgroundImage:"url(https://www.macmillandictionary.com/external/slideshow/full/Bronze_full.png)",
-    // backgroundSize:"cover",
-    // backgroundRepeat:"no-repeat"
     background: `rgb(162,87,65)`,
     background: `linear-gradient(90deg, rgba(162,87,65,1) 0%, rgba(252,206,187,1) 50%, rgba(162,87,65,1) 96%)`
   }
   const bronzeBadge = "https://user-images.githubusercontent.com/90475607/192353208-751e8773-5a0d-4620-a4eb-08d10f5db110.png";
-   
-  // const dispatch = useDispatch();
-
   
 
 function Leaderboard() {
@@ -81,13 +65,9 @@ function Leaderboard() {
   const storeData = useSelector((state) => state)
     useEffect(()=>{
         if(storeData.isLogin)
-        {
             setUserID(storeData.data._id);
-        }
         else
-        {
             setUserID("");
-        }
     }, [storeData])
 
 
@@ -184,7 +164,6 @@ function Leaderboard() {
         />
       </Paper>
        }
-  
         </div>
     </div>
    <Footer />
