@@ -26,7 +26,7 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
     var [netSpeed, setNetSpeed] = useState(0);
 
     useEffect(()=>{
-      if(speed>=60)
+      if(speed>=55)
       {
         if(accuracy>=95)
         {
