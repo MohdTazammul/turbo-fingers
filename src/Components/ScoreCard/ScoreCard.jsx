@@ -4,7 +4,7 @@ import "./style.scss"
 import GaugeChart from "react-gauge-chart";
 import { useEffect } from 'react';
 import API from "../../utills/API";
-function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,heading, userID, freqOfWrongChars}) {
+function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,heading, userID, freqOfWrongChars, wrong}) {
 
   var words = paragraph.join("").split(" ").length;
   var characters = paragraph.length;
@@ -123,7 +123,7 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
       if(feedback=="")
       return
 
-      var temp = (((characters-typos) / ((minutes*60)+seconds)) * (60 / 5)).toFixed(3);
+      var temp = (((characters-wrong) / ((minutes*60)+seconds)) * (60 / 5)).toFixed(2);
       setNetSpeed(temp)
       var obj = {
         grossSpeed: +speed,
