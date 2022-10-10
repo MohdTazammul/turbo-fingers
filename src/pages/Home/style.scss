@@ -12,6 +12,7 @@
   #middle-cont 
   {
     width: 70%;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
     margin: auto;
     border-radius: 50px;
     background-color: white;
@@ -21,7 +22,10 @@
     overflow: hidden;
     display: grid;
     grid-template-columns: 60% 40%;
-
+    .mobile
+    {
+      display: none;
+    }
     div:nth-child(1) {
       padding: 20px;
       box-sizing: border-box;
@@ -79,3 +83,33 @@
     }
   }
 }
+
+@media screen and (max-width: 700px)
+    {
+        .Home-Page 
+        {
+          #middle-cont 
+          {
+            width: 95%;
+            grid-template-columns: 100%; 
+            align-items: center;
+            border-radius: 20px;
+            .desktop
+            {
+              display: none;
+            }
+            .mobile
+            {
+              display: block;
+            }
+            div:nth-child(1) h1
+            {
+              font-size: 40px !important;
+            }
+            div:nth-child(1) p
+            {
+              font-size: 20px;
+            }
+          }
+        }
+    }

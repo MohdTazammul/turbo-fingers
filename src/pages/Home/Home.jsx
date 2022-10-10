@@ -12,12 +12,16 @@ function Home() {
         <div id='middle-cont'>
             <div>
                 <h1>Turbo Typing Test</h1>
-                <p>
+                <p className='desktop'>
                 You can test your typing speed in WPM with some other details i.e. accuracy, wrong entries, gross speed, net speed, etc. And impress your friends or employers with your higher rank on trubo fingers leaderboard. Test your typing speed, and find out how fast you type, and then improve your typing speed accordingly.
                 </p>
+                <p className='mobile'>Unfortunately you can't use Turbo Fingers Typing Test on your mobile phone. To attempt typing test please use the desktop.</p>
+                <div className='desktop'>
                 <Button value={"Take typing test"} redirect={"/Typing-Test"} />
+                </div>
+                
             </div>
-            <div>
+            <div className='desktop'>
                 <div></div>
             </div>
         </div>
