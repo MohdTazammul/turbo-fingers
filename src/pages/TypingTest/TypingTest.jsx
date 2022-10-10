@@ -46,49 +46,31 @@ function TypingTest() {
             setUserID(storeData.data._id);
         }
         else
-        {
             setLoggedIn(false);
-        }
     }, [storeData])
-
-
-    useEffect(()=>{
-      let backup = JSON.parse(localStorage.getItem("backup"));
-      if(backup)
-      {
-        localStorage.removeItem("backup")
-        if(backup.isLogin)
-          dispatch(storeToken({token:backup.token, data:backup.data}))
-      }
-    }, [])
 
   const RetakeTest = () =>
   {
-    // console.log("Initiate Retake test process")
-    localStorage.setItem("backup", JSON.stringify(storeData));
     window.location.reload();
   }
 
     const onRegister =() =>
     {
         setLoginLoader(true);
-        signInWithPopup(auth, provider).then(resp=>{
-          
+        signInWithPopup(auth, provider).then(resp=>
+          {
                     var obj = {name:resp.user.displayName, email:resp.user.email, image:resp.user.photoURL, authProvider:"Google"};
-                    // console.log(obj)
                     fetch(`${API}/user`, {
                         method:"POST",
                         headers:{'Content-Type': 'application/json'},
                         body : JSON.stringify(obj)
                     }).then(resp=>resp.json()).then(resp=>{
-                        // console.log(resp)
                         if(!resp.error)
                         {
                             setUserID(resp.data._id)
                             setLoginLoader(false);
                             setLoggedIn(true);
                             dispatch(storeToken({token:resp.token, data:resp.data}));
-                            // localStorage.setItem("token", resp.token)
                         }
                     })
                 }).catch(e=>{
@@ -103,14 +85,13 @@ function TypingTest() {
   useEffect(() => {
     var currentIndex = 0;
     content.current[0].classList.add("current");
-    window.addEventListener("keypress", (e) => {
-      // console.log(text)
+    window.addEventListener("keypress", (e) => 
+    {
       numberOfCharsTyped = currentIndex;
       if (currentIndex == 0) {
         setTimerFlag(true);
         setAccuracy(100);
       }
-      // console.log(text[currentIndex], e.key);
       if (text[currentIndex] == e.key) {
         content.current[currentIndex].classList.remove("error");
         content.current[currentIndex].classList.remove("current");
@@ -120,13 +101,11 @@ function TypingTest() {
           setTimerFlag(false);
           setLoader(true);
           setTimeout(() => {
-            // setLoader(false);
             setScorePage(true);
           }, 1000);
         } else content.current[currentIndex].classList.add("current");
       } else 
       {
-        // console.log(wrongChars, text[currentIndex])
        if(text[currentIndex])
        {
         wrongChars[text[currentIndex]] = wrongChars[text[currentIndex]]
@@ -207,6 +186,7 @@ function TypingTest() {
             heading={heading}
             userID={userID}
             freqOfWrongChars={wrongChars}
+            wrong={wrongSumbissions}
             RetakeTest
           />
         </div>
