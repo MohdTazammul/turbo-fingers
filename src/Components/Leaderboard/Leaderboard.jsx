@@ -134,7 +134,7 @@ function Leaderboard() {
           <Table stickyHeader aria-label="Leaderboard" size='small' >
             <TableHead>
               <TableRow>
-                  <StyledTableCell align='center' style={{ minWidth: "70px" }}>
+                  <StyledTableCell align='center' style={{ minWidth: "40px"}}>
                       Rank
                   </StyledTableCell>
                   <StyledTableCell>
@@ -143,13 +143,13 @@ function Leaderboard() {
                   <StyledTableCell style={{ minWidth: "100px" }}>
                       Name
                   </StyledTableCell>
-                  <StyledTableCell style={{ minWidth: "100px" }}>
+                  <StyledTableCell className='desktop-cols' style={{ minWidth: "100px" }}>
                       Username
                   </StyledTableCell>
                   <StyledTableCell style={{ minWidth: "50px" }}>
                       Net Speed
                   </StyledTableCell>
-                  <StyledTableCell style={{ minWidth: "100px" }}>
+                  <StyledTableCell className='desktop-cols' style={{ minWidth: "70px" }}>
                       Test Taken on
                   </StyledTableCell>
               </TableRow>
@@ -163,9 +163,9 @@ function Leaderboard() {
                       <StyledTableCell align='center'> {el[0] == 1? <img src={goldBadge} height={"40px"} /> : el[0]==2?<img src={silverBadge} height={"40px"} />: el[0]==3 ? <img src={bronzeBadge} height={"40px"} /> : (el[0]%10)==1 ? el[0]+"st" : (el[0]%10)==2 ? el[0]+"nd" : (el[0]%10) == 3 ? el[0]+"rd" : el[0]+"th"}</StyledTableCell>
                       <StyledTableCell><img style={{height:"40px", borderRadius:"50%"}} alt={el[2]} src={el[1]} /></StyledTableCell>
                       <StyledTableCell>{userID&&userID==el[6]?<StarRoundedIcon color='primary' style={{marginBottom:"-5px"}} />:""} {el[2]}</StyledTableCell>
-                      <StyledTableCell>{el[3]}</StyledTableCell>
+                      <StyledTableCell className='desktop-cols'>{el[3]}</StyledTableCell>
                       <StyledTableCell>{el[4]}</StyledTableCell>
-                      <StyledTableCell>{el[5]}</StyledTableCell>
+                      <StyledTableCell className='desktop-cols'>{el[5]}</StyledTableCell>
                   </StyledTableRow>
               )
              })
