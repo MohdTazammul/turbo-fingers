@@ -26,7 +26,25 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
     var [netSpeed, setNetSpeed] = useState(0);
 
     useEffect(()=>{
-      if(speed>=40)
+      if(speed>=60)
+      {
+        if(accuracy>=95)
+        {
+          setFeedback("Your typing speed is really good with maintaining the accuracy of above 95%, keep typing for even more better speed.")
+          setFeedbackTheme(1);
+        }
+        else if(accuracy>=88)
+        {
+          setFeedback("Your typing speed is really good but accuacry rate is falling below 95%, so try to increase the accuracy rate with maintaing the same speed.")
+          setFeedbackTheme(1);
+        }
+        else
+        {
+          setFeedback("Your typing speed is really good but accuacry rate is too low, so try to increase the accuracy rate with maintaing the same speed.")
+          setFeedbackTheme(2);
+        }
+      }
+      else if(speed>=40)
       {
         if(accuracy == 100)
         {
