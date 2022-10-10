@@ -11,7 +11,6 @@ import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import IconButton from "@mui/material/IconButton";
 import Logout from "@mui/icons-material/Logout";
 import FeedbackIcon from '@mui/icons-material/Feedback';
 import Divider from '@mui/material/Divider';
@@ -40,7 +39,6 @@ function Navbar() {
 
   const storeData = useSelector((state) => state)
     useEffect(()=>{
-      console.log(storeData)
         if(storeData.isLogin)
         {
             setLoggedIn(true);
@@ -56,14 +54,12 @@ function Navbar() {
     setLoader(true);
     signInWithPopup(auth, provider)
       .then((resp) => {
-        // console.log(resp)
         var obj = {
           name: resp.user.displayName,
           email: resp.user.email,
           image: resp.user.photoURL,
           authProvider: "Google",
         };
-        // console.log(obj)
         fetch(`${API}/user`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -97,10 +93,10 @@ function Navbar() {
       </div>
       <div>
         <button onClick={() => navigate("/")}>Home</button>
-        <button onClick={() => navigate("/Typing-Test")}>Typing Test</button>
+        <button className="desktop" onClick={() => navigate("/Typing-Test")}>Typing Test</button>
         <button onClick={() => navigate("/Leaderboard")}>Leaderboard</button>
       </div>
-      <div>
+      <div className="desktop">
         {loggedIn ? (
           <div>
             <div
@@ -114,7 +110,6 @@ function Navbar() {
               onClose={handleClose}
               onClick={handleClose}
               PaperProps={{
-                // elevation: 0,
                 sx: {
                   overflow: "visible",
                   filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
