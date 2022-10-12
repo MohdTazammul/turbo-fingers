@@ -70,7 +70,7 @@ let loaderStyle = {
     <ComposedChart
     layout="vertical"
     width={800}
-    height={100*data.length}
+    height={data.length <= 5 ? data.length*150 : data.length*100 }
     data={data}
     margin={{
       top: 20,
