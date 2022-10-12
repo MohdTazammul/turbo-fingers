@@ -12,10 +12,10 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
     var typos=0
     for(var key in freqOfWrongChars)
     {
-      if(key)
+      if(key && freqOfWrongChars[key]<50)
       {
         typos+=freqOfWrongChars[key];
-      mistakes.push([key==" "?"space":key, freqOfWrongChars[key]]);
+        mistakes.push([key==" "?"space":key, freqOfWrongChars[key]]);
       }
     }
     mistakes.sort((a,b)=>b[1]-a[1])
@@ -122,7 +122,7 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
     useEffect(()=>{
       if(feedback=="")
       return
-
+      console.log(characters, wrong, (minutes*60)+seconds)
       var temp = (((characters-wrong) / ((minutes*60)+seconds)) * (60 / 5)).toFixed(2);
       setNetSpeed(temp)
       var obj = {
@@ -162,14 +162,10 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
       backgroundColor:"#F2DEDD"
     }
 
-    const storeData = useSelector((state) => state)
-
     const RetakeTest = () =>
-  {
-    console.log("Initiate Retake test process")
-    localStorage.setItem("backup", JSON.stringify(storeData));
-    window.location.reload();
-  }
+    {
+      window.location.reload();
+    }
 
   return (
     
@@ -211,10 +207,10 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
                   </div>
               </div>
               <div className='card'>
-                <div>Net Speed</div>
+                <div>Net Speed <span style={{fontSize:"1vw"}}> (wpm)</span></div>
                   <div>
                     <div className='speed'></div>
-                    <div>{netSpeed}<span style={{fontSize:"1.2vw"}}>(wpm)</span></div>
+                    <div>{netSpeed}</div>
                   </div>
               </div>
               <div className='card'>
@@ -235,7 +231,7 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
                 <div>Mistakes</div>
                   <div>
                     <div className='wrong-entries'></div>
-                    <div>{typos}</div>
+                    <div>{wrong}</div>
                   </div>
               </div>
             </div>
