@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import FadeInSection from '../../utills/FadeInSection';
 import Footer from '../../Components/Footer/Footer';
 import Button from '../../utills/Button';
 import "./style.scss"
@@ -9,6 +10,7 @@ function Home() {
     <>
     <div className='Home-Page'>
         <div id='banner-img'></div>
+        <FadeInSection>
         <div id='middle-cont'>
             <div>
                 <h1>Turbo Typing Test</h1>
@@ -25,6 +27,7 @@ function Home() {
                 <div></div>
             </div>
         </div>
+        </FadeInSection>
     </div>
     <Footer />
     </>
