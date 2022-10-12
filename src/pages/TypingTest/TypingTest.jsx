@@ -17,6 +17,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 
 
 var wrongChars = {};
+var wrongSumbissions = 0;
 var numberOfCharsTyped = 0;
 function TypingTest() {
   const navigate = useNavigate();
@@ -81,7 +82,6 @@ function TypingTest() {
                 })
     }
 
-  var wrongSumbissions = 0;
   useEffect(() => {
     var currentIndex = 0;
     content.current[0].classList.add("current");
