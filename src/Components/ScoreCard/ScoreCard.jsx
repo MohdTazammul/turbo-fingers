@@ -122,7 +122,6 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
     useEffect(()=>{
       if(feedback=="")
       return
-      console.log(characters, wrong, (minutes*60)+seconds)
       var temp = (((characters-wrong) / ((minutes*60)+seconds)) * (60 / 5)).toFixed(2);
       setNetSpeed(temp)
       var obj = {
