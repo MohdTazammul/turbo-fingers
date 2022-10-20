@@ -10,6 +10,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import moment from "moment";
 
 import { useEffect, useState } from 'react'
 import "./style.scss"
@@ -76,14 +77,15 @@ function Leaderboard() {
         .then(resp=>{
             let filteredData = [];
             resp.data.map((el,i)=>{
-              var d=new Date(el.updatedAt); 
-                filteredData.push([i+1, el.user.image, el.user.name, el.user.email.split("@")[0], (+el.bestScore.netSpeed).toFixed(2), d.toLocaleString(), el.user._id]);
+              
+                filteredData.push([i+1, el.user.image, el.user.name, el.user.email.split("@")[0], (+el.bestScore.netSpeed).toFixed(2), el.updatedAt, el.user._id]);
             })
             setData(filteredData);
             setLoader(false)
         })
     }, [])
 
+   
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -145,7 +147,7 @@ function Leaderboard() {
                       <StyledTableCell>{userID&&userID==el[6]?<StarRoundedIcon color='primary' style={{marginBottom:"-5px"}} />:""} {el[2]}</StyledTableCell>
                       <StyledTableCell className='desktop-cols'>{el[3]}</StyledTableCell>
                       <StyledTableCell>{el[4]}</StyledTableCell>
-                      <StyledTableCell className='desktop-cols'>{el[5]}</StyledTableCell>
+                      <StyledTableCell className='desktop-cols'>{moment(el[5]).fromNow()}</StyledTableCell>
                   </StyledTableRow>
               )
              })
