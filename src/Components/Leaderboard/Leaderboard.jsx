@@ -8,6 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import Tooltip, { tooltipClasses }  from '@mui/material/Tooltip';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import moment from "moment";
@@ -36,6 +37,19 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
   }));
 
+ 
+const CustomTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} arrow classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.arrow}`]: {
+    color: theme.palette.common.black,
+  },
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: theme.palette.common.black,
+    fontSize:'16px',
+    border:"1px solid white"
+  },
+}));
   const gold = {
 
     backgroundImage:"url(https://static.vecteezy.com/system/resources/thumbnails/002/011/509/small/gold-metal-texture-background-illustration-vector.jpg)",
@@ -77,8 +91,8 @@ function Leaderboard() {
         .then(resp=>{
             let filteredData = [];
             resp.data.map((el,i)=>{
-              
-                filteredData.push([i+1, el.user.image, el.user.name, el.user.email.split("@")[0], (+el.bestScore.netSpeed).toFixed(2), el.updatedAt, el.user._id]);
+                let time = new Date(el.updatedAt);
+                filteredData.push([i+1, el.user.image, el.user.name, el.user.email.split("@")[0], (+el.bestScore.netSpeed).toFixed(2), el.updatedAt, el.user._id, (time).toLocaleString()]);
             })
             setData(filteredData);
             setLoader(false)
@@ -147,7 +161,7 @@ function Leaderboard() {
                       <StyledTableCell>{userID&&userID==el[6]?<StarRoundedIcon color='primary' style={{marginBottom:"-5px"}} />:""} {el[2]}</StyledTableCell>
                       <StyledTableCell className='desktop-cols'>{el[3]}</StyledTableCell>
                       <StyledTableCell>{el[4]}</StyledTableCell>
-                      <StyledTableCell className='desktop-cols'>{moment(el[5]).fromNow()}</StyledTableCell>
+                      <StyledTableCell className='desktop-cols'><CustomTooltip title={el[7]} placement='top' arrow><span style={{cursor:"pointer"}}>{moment(el[5]).fromNow()}</span></CustomTooltip></StyledTableCell>
                   </StyledTableRow>
               )
              })
