@@ -120,8 +120,8 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
 
 
     useEffect(()=>{
-      if(feedback=="")
-      return
+      if(feedback == "")
+        return
       var temp = (((characters-wrong) / ((minutes*60)+seconds)) * (60 / 5)).toFixed(2);
       setNetSpeed(temp)
       var obj = {
@@ -137,14 +137,12 @@ function ScoreCard({speed, accuracy, totalTime, seconds, minutes, paragraph,head
         paragraphTitle : heading,
         user:userID
       }
-      
       fetch(`${API}/score`, {
         method:"POST",
         headers:{'Content-Type': 'application/json'},
         body : JSON.stringify(obj)
     }).then(resp=>resp.json()).then(resp=>{
       console.log(resp)
-
     })
     
   }, [feedback])
