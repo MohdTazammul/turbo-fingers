@@ -10,6 +10,15 @@ function Footer() {
       <div id="Footer">
         <div>
           <a
+            href="https://tazammul.in"
+            target={"_blank"}
+          >
+            <Avatar
+              alt="Linkedin"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzgMRRHk7x1lOHA7vH3M9PTjiMcQmrwo2YsnrTKM3BpW9XxKOsUuUiUMUsgqlhPVBmn-M&usqp=CAU"
+            />
+          </a>
+          <a
             href="https://www.linkedin.com/in/mohd-tazammul/"
             target={"_blank"}
           >
@@ -39,7 +48,7 @@ function Footer() {
             | <span onClick={() => navigate("/profile")}>Profile Page</span>
           </div>
           <p>
-            Made by Mohd Tazammul with <span>&#9829;</span>
+            Built by Mohd Tazammul with <span>&#9829;</span>
           </p>
         </div>
       </div>
