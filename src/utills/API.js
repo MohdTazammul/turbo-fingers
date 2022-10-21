@@ -1,2 +1,2 @@
-const API =  "https://moc-13.herokuapp.com"
+const API =  "https://turbo-fingers.herokuapp.com"
 export default API
