@@ -13,6 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Logout from "@mui/icons-material/Logout";
 import FeedbackIcon from '@mui/icons-material/Feedback';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import Divider from '@mui/material/Divider';
 
 import API from "../../utills/API";
@@ -158,6 +159,16 @@ function Navbar() {
                   <FeedbackIcon fontSize="medium" />
                 </ListItemIcon>
                 Feedback Form
+              </MenuItem>
+              <MenuItem onClick={()=>{
+                window
+                .open("https://github.com/MohdTazammul/turbo-fingers", "_blank")
+                .focus()
+              }}>
+                <ListItemIcon>
+                  <GitHubIcon fontSize="medium" />
+                </ListItemIcon>
+                Source Code
               </MenuItem>
               
             </Menu>
